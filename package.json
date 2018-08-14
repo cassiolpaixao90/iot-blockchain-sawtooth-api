@@ -1,24 +1,24 @@
 {
-    "name": "iot-blockchain-swatooth-api",
-    "version": "1.0.0",
-    "description": "It's sample app with integration blockchain in context iot (internet of things)",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Cássio Paixão <cassiopaixaoti@gmail.com>",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/cassiolpaixao90/iot-blockchain-sawtooth-api.git"
-      },
-    "dependencies": {
-      "cbor": "4.0.0",
-      "nodemon": "^1.13.3",
-      "redux": "3.7.2",
-      "request": "2.83.0",
-      "restify": "6.3.4",
-      "sawtooth-sdk": "1.0.1"
-    }
+  "name": "iot-blockchain-swatooth-api",
+  "version": "1.0.0",
+  "description": "It's sample app with integration blockchain in context iot (internet of things)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cássio Paixão <cassiopaixaoti@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cassiolpaixao90/iot-blockchain-sawtooth-api.git"
+  },
+  "dependencies": {
+    "cbor": "4.0.0",
+    "lodash": "^4.17.10",
+    "nodemon": "^1.13.3",
+    "redux": "3.7.2",
+    "request": "2.83.0",
+    "restify": "6.3.4",
+    "sawtooth-sdk": "1.0.1"
   }
-  
+}
