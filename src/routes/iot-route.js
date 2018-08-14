@@ -1,6 +1,6 @@
 'use strict';
 
-const {Router}                   = require('express')
+const {Router}                 = require('express')
 const iotService               = require('../services/iot-service')
 
 const iotRouter =  Router();

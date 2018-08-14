@@ -7,11 +7,14 @@ exports.register = (req, res, next) => {
 }
 
 exports.search = (req, res, next) => {
-    const address = req.params.address;
-    console.log(address);
+    console.log("search");
+    
+    // const address = req.params.address;
+    // console.log(address);
+    // res.json(adress)
 
-    searchBlockchain(address, (obj) => {
-        res.send(obj);
-        next();
-    });
+    // searchBlockchain(address, (obj) => {
+    //     res.send(obj);
+    //     next();
+    // });
 }
