@@ -1,11 +1,11 @@
 "use strict";
 
-const cors  = require("cors");
-// import userRouter                   from "../routes/user-route";
+const cors              = require("cors");
+const { iotRouter }     = require('../routes/iot-route');
 
 function ConfigApiRoutes(app) {
     app.use(cors());
-    // app.use("/api/user", userRouter);
+    app.use("/api", iotRouter);
 }
 
 module.exports = { ConfigApiRoutes }
