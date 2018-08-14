@@ -1,13 +1,17 @@
 {
     "name": "iot-blockchain-swatooth-api",
     "version": "1.0.0",
-    "description": "",
+    "description": "It's sample app with integration blockchain in context iot (internet of things)",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Cássio Paixão <cassiopaixaoti@gmail.com>",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cassiolpaixao90/iot-blockchain-sawtooth-api.git"
+      },
     "dependencies": {
       "cbor": "4.0.0",
       "nodemon": "^1.13.3",

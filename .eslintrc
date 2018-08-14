@@ -1,0 +1,16 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "extends": [
+        "cassiopaixao/best-practices",
+        "cassiopaixao/possible-errors",
+        "cassiopaixao/es6/best-practices",
+        "cassiopaixao/es6/possible-errors",
+        "cassiopaixao/import/best-practices",
+        "cassiopaixao/import/possible-errors",
+        "cassiopaixao/mocha"
+    ],
+    "rules": {}
+}
