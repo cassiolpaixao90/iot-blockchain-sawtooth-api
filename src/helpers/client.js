@@ -1,7 +1,7 @@
 'use strict'
 
 const cbor = require('cbor')
-const {buildSawtoothPackage, sendToSawtoothApi} = require('./infra')
+const {buildSawtoothPackage, sendToSawtoothApi} = require('../services/iot-service')
 
 const registerBlockchain = (payload) => {
   console.log(payload);
