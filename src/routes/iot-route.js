@@ -1,11 +1,11 @@
 'use strict';
 
 const {Router}                 = require('express')
-const iotService               = require('../services/iot-service')
+const iotController               = require('../controllers/iot-controller')
 
 const iotRouter =  Router();
 
-iotRouter.post('/register', iotService.register);
-iotRouter.get('/search', iotService.search);
+iotRouter.post('/register', iotController.regwister);
+iotRouter.get('/search', iotController.search);
 
 module.exports = { iotRouter }

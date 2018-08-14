@@ -1,20 +1,109 @@
-exports.register = (req, res, next) => {
-    const obj = req.body;
-    registerBlockchain(obj);
+const {createHash} = require('crypto')
+const {protobuf} = require('sawtooth-sdk')
+const {createContext, CryptoFactory} = require('sawtooth-sdk/signing')
+const {Secp256k1PrivateKey} = require('sawtooth-sdk/signing/secp256k1')
+const request = require('request');
 
-    res.send(200);
-    next();
+function handlerInfo(){
+  const familyName = 'onlineiotblockchain';
+  return {
+            prefix : getAddress(familyName, 6),
+            family : familyName,
+            version :'0.0.1'
+        };
 }
 
-exports.search = (req, res, next) => {
-    console.log("search");
-    
-    // const address = req.params.address;
-    // console.log(address);
-    // res.json(adress)
-
-    // searchBlockchain(address, (obj) => {
-    //     res.send(obj);
-    //     next();
-    // });
+function getAddress(key, length) {
+  return createHash('sha512').update(key).digest('hex').slice(0, length)
 }
+
+function calculateVoteAddress(payload) {
+  return handlerInfo().prefix + getAddress(payload.ellectionName,20) + getAddress(payload.userNumber,20) + getAddress(payload.address,24);
+}
+
+const getAssetAddress = payload => handlerInfo().prefix + getAddress(payload.ellectionName,20) + getAddress(payload.userNumber,20) + getAddress(payload.address,24)
+
+function sendToSawtoothApi(batchBytes) {
+  request({
+      url: 'http://localhost:8008/batches?wait',
+      method: 'POST',
+      body: batchBytes,
+      encoding: null,
+      headers: {'Content-Type': 'application/octet-stream'}
+    }, (error, response, body) => {
+      if (error) {
+        console.log(error);
+      } else {
+        const res = new Buffer(response.body, 'base64').toString()
+        console.log('Response: ', res);
+      }
+    })
+}
+
+function searchBlockchain(address,callback) {
+  request({
+      url: `http://localhost:8008/state?address=${address}`,
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    }, (error, response, body) => {
+      if (error) {
+        console.log(error);
+      } else {
+        const items = JSON.parse(response.body).data;
+
+        const decodedInfo = items.map((item) => {
+          return JSON.parse(new Buffer(item.data, 'base64').toString());
+        });
+
+        callback(decodedInfo);
+      }
+    })
+}
+
+function buildSawtoothPackage(payloadBytes,privateKey){
+
+  const context = createContext('secp256k1');
+  const privateKeyInstance = Secp256k1PrivateKey.fromHex(privateKey);
+  const signer = new CryptoFactory(context).newSigner(privateKeyInstance);
+
+  const {family,version,prefix} = handlerInfo();
+
+  const transactionHeaderBytes = protobuf.TransactionHeader.encode({
+    familyName: family,
+    familyVersion: version,
+    inputs: [prefix],
+    outputs: [prefix],
+    signerPublicKey: signer.getPublicKey().asHex(),
+    batcherPublicKey: signer.getPublicKey().asHex(),
+    payloadSha512: createHash('sha512').update(payloadBytes).digest('hex')
+  }).finish();
+
+  const signature = signer.sign(transactionHeaderBytes);
+
+  const transaction = protobuf.Transaction.create({
+      header: transactionHeaderBytes,
+      headerSignature: signature,
+      payload: payloadBytes
+  });
+
+  const batchHeaderBytes = protobuf.BatchHeader.encode({
+      signerPublicKey: signer.getPublicKey().asHex(),
+      transactionIds: [transaction.headerSignature],
+  }).finish();
+
+  const batchSignature = signer.sign(batchHeaderBytes);
+
+  const batch = protobuf.Batch.create({
+      header: batchHeaderBytes,
+      headerSignature: batchSignature,
+      transactions: [transaction]
+  });
+
+  const batchBytes = protobuf.BatchList.encode({
+      batches: [batch]
+  }).finish();
+
+  return batchBytes;
+}
+
+module.exports = { buildSawtoothPackage,sendToSawtoothApi,handlerInfo,calculateVoteAddress,searchBlockchain}
