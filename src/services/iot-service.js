@@ -62,6 +62,8 @@ function searchBlockchain(address,callback) {
 
 function buildSawtoothPackage(payloadBytes,privateKey){
 
+  console.log("privateKey",privateKey);
+  
   const context = createContext('secp256k1');
   const privateKeyInstance = Secp256k1PrivateKey.fromHex(privateKey);
   const signer = new CryptoFactory(context).newSigner(privateKeyInstance);

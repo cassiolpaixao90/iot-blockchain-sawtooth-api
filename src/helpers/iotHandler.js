@@ -14,7 +14,7 @@ const getAddress = (key, length = 64) => {
 const encode = obj => Buffer.from(JSON.stringify(obj, Object.keys(obj).sort()))
 
 class IotHandler extends TransactionHandler {
-  constructor () {
+  constructor () { 
     console.log('Iniciando smart contract')
     const info = handlerInfo();
     super(info.family, [info.version], [info.prefix]);
