@@ -66,7 +66,7 @@ function buildSawtoothPackage(payloadBytes, privateKey) {
   const privateKeyInstance = Secp256k1PrivateKey.fromHex(privateKey);
   const signer = new CryptoFactory(context).newSigner(privateKeyInstance);
 
-  const {family, version, prefix} = handlerInfo();
+  const {family,version,prefix} = handlerInfo();
 
   const transactionHeaderBytes = protobuf.TransactionHeader.encode({
     familyName: family,
