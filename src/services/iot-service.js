@@ -3,6 +3,7 @@ const {protobuf} = require('sawtooth-sdk')
 const {createContext, CryptoFactory} = require('sawtooth-sdk/signing')
 const {Secp256k1PrivateKey} = require('sawtooth-sdk/signing/secp256k1')
 const request = require('request');
+const ip = require('ip')
 
 function handlerInfo() {
   const familyName = 'onlineiotblockchain';
@@ -42,15 +43,15 @@ function sendToSawtoothApi(batchBytes) {
 
 function searchBlockchain(address, callback) {
   request({
-    url: `http://localhost:8008/state?address=${address}`,
+    url: `http://192.168.0.107:8008/state?address=000000a87c`,
     method: 'GET',
     headers: {'Content-Type': 'application/json'}
   }, (error, response, body) => {
     if (error) {
-      console.log(error);
+      console.log("error",error);
     } else {
+      debugger
       const items = JSON.parse(response.body).data;
-
       const decodedInfo = items.map((item) => {
         return JSON.parse(new Buffer(item.data, 'base64').toString());
       });

@@ -14,6 +14,7 @@ exports.register = (req, res, next) => {
 
 exports.search = (req, res, next) => {
   const address = req.params.address
+  console.log(address);
   searchBlockchain(address, (obj) => {
     res.send(obj)
     next()
