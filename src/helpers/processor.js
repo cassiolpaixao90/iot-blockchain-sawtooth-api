@@ -1,6 +1,6 @@
 'use strict'
 
-const { TransactionProcessor } = require('sawtooth-sdk/processor');
+const {TransactionProcessor} = require('sawtooth-sdk/processor');
 const VALIDATOR_URL = 'tcp://localhost:4004';
 
 module.exports = (handler) => {
