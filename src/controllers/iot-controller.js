@@ -1,7 +1,10 @@
-const { registerBlockchain, searchBlockchain }  = require('../services/iot-service')
+const { searchBlockchain }  = require('../services/iot-service')
+const { registerBlockchain } = require('../helpers/client')
 
 exports.register = (req, res, next) => {
     const obj = req.body;
+    console.log("obj", obj);
+    
     registerBlockchain(obj);
     res.send(200);
     next();
