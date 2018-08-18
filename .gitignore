@@ -3,4 +3,4 @@ node_modules/
 coverage/
 dist/
 .opt-*
-.idea
+.idea/
