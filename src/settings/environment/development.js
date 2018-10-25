@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
 module.exports = {
   server: {
     host: 'localhost',
-    port: 9000
+    port: 9343
   },
   envNode: 'development'
-};
+}

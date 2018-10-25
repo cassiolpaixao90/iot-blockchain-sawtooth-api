@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel open:src",
-    "open:src": "nodemon --inspect src/index.js",
+    "open:src": "nodemon src/index.js",
     "lint": "node_modules/.bin/esw src",
     "lint:watch": "npm run lint -- --watch"
   },
