@@ -21,7 +21,7 @@ function getAddress (key, length) {
     .slice(0, length)
 }
 
-function calculateVoteAddress (payload) {
+function calculateWaterAddress (payload) {
   console.log('payload', payload)
   return (
     handlerInfo().prefix +
@@ -130,6 +130,6 @@ module.exports = {
   buildSawtoothPackage,
   sendToSawtoothApi,
   handlerInfo,
-  calculateVoteAddress,
+  calculateWaterAddress,
   searchBlockchain
 }

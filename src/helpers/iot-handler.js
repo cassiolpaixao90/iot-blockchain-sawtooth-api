@@ -5,7 +5,10 @@ const { TransactionHandler } = require('sawtooth-sdk/processor/handler')
 const { InvalidTransaction } = require('sawtooth-sdk/processor/exceptions')
 const { Decoder } = require('cbor')
 
-const { calculateVoteAddress, handlerInfo } = require('../services/iot-service')
+const {
+  calculateWaterAddress,
+  handlerInfo
+} = require('../services/iot-service')
 
 const getAddress = (key, length = 64) => {
   return createHash('sha512')
@@ -27,7 +30,7 @@ class IotHandler extends TransactionHandler {
     console.log('chegando uma nova transacao')
     const dataDecoded = Decoder.decodeFirstSync(txn.payload)
     const payload = JSON.parse(dataDecoded)
-    const blockAddress = calculateVoteAddress(payload)
+    const blockAddress = calculateWaterAddress(payload)
     const { cost, anomalia } = payload
     console.log('payload', payload)
     return context.setState({
