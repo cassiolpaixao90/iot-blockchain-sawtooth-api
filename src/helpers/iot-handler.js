@@ -28,9 +28,10 @@ class IotHandler extends TransactionHandler {
     const dataDecoded = Decoder.decodeFirstSync(txn.payload)
     const payload = JSON.parse(dataDecoded)
     const blockAddress = calculateVoteAddress(payload)
-    const { candidateNumber, ellectionName } = payload
+    const { cost, anomalia } = payload
+    console.log('payload', payload)
     return context.setState({
-      [blockAddress]: encode({ candidateNumber, ellectionName })
+      [blockAddress]: encode({ cost, anomalia })
     })
   }
 }

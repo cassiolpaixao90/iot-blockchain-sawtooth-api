@@ -25,16 +25,16 @@ function calculateVoteAddress (payload) {
   console.log('payload', payload)
   return (
     handlerInfo().prefix +
-    getAddress(payload.ellectionName, 20) +
-    getAddress(payload.userNumber, 20) +
+    getAddress(payload.anomalia, 20) +
+    getAddress(payload.cost, 20) +
     getAddress(payload.address, 24)
   )
 }
 
 const getAssetAddress = payload =>
   handlerInfo().prefix +
-  getAddress(payload.ellectionName, 20) +
-  getAddress(payload.userNumber, 20) +
+  getAddress(payload.anomalia, 20) +
+  getAddress(payload.cost, 20) +
   getAddress(payload.address, 24)
 
 function sendToSawtoothApi (batchBytes) {
